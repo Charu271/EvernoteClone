@@ -13,6 +13,10 @@ class App extends React.Component {
       notes: null,
     };
   }
+  selectNote = (note, index) => {
+    this.setState({ selectedNoteIndex: index, selectedNote: note });
+  };
+  deleteNote = () => {};
   componentDidMount = () => {
     firebase
       .firestore()
@@ -33,6 +37,8 @@ class App extends React.Component {
         <Sidebar
           notes={this.state.notes}
           selectedNoteIndex={this.state.selectedNoteIndex}
+          selectNote={this.selectNote}
+          deleteNote={this.deleteNote}
         />
         <Editor />
       </div>
