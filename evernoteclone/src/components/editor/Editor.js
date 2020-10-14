@@ -4,14 +4,15 @@ import debounce from "../helpers.js";
 import BorderColorIcon from "@material-ui/icons/BorderColor";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./Styles.js";
+import { ThreeSixtyTwoTone } from "@material-ui/icons";
 
 class Editor extends React.Component {
   constructor() {
     super();
     this.state = {
-      title: null,
-      id: null,
-      text: null,
+      title: "",
+      id: "",
+      text: "",
     };
   }
   updateBody = async (val) => {
@@ -20,8 +21,27 @@ class Editor extends React.Component {
     this.update();
   };
   update = debounce(() => {
-    console.log("updated");
+    this.props.noteUpdate(this.state.id, {
+      title: this.state.title,
+      body: this.state.text,
+    });
   }, 1500);
+  componentDidMount = () => {
+    this.setState({
+      text: this.props.selectedNote.body,
+      id: this.props.selectedNote.id,
+      title: this.props.selectedNote.title,
+    });
+  };
+  componentDidUpdate = () => {
+    if (this.state.id !== this.props.selectedNote.id) {
+      this.setState({
+        text: this.props.selectedNote.body,
+        id: this.props.selectedNote.id,
+        title: this.props.selectedNote.title,
+      });
+    }
+  };
   render() {
     const { classes } = this.props;
     return (
