@@ -17,12 +17,9 @@ class Sidebar extends React.Component {
   }
   addNewNote = () => {
     this.setState({ title: null, addingNote: !this.state.addingNote });
-    console.log("new note");
   };
   updateTitle = (e) => {
     this.setState({ title: e.target.value });
-    console.log(e.target.value);
-    console.log(this.state.title);
   };
   createNewNote = () => {
     this.props.newNote(this.state.title);
@@ -33,6 +30,9 @@ class Sidebar extends React.Component {
   };
   deleteHandler = (note, index) => {
     this.props.deleteNote(note, index);
+  };
+  copyHandler = (note, index) => {
+    this.props.copyNote(note, index);
   };
   render() {
     const { classes, notes, selectedNoteIndex } = this.props;
@@ -68,6 +68,7 @@ class Sidebar extends React.Component {
                     selectedNoteIndex={selectedNoteIndex}
                     deleteHandler={this.deleteHandler}
                     selectHandler={this.selectHandler}
+                    copyHandler={this.copyHandler}
                   ></SidebarItem>
                 </div>
               );

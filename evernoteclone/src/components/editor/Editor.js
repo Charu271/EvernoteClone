@@ -20,6 +20,10 @@ class Editor extends React.Component {
     console.log(this.state.text);
     this.update();
   };
+  updateTitle = async (val) => {
+    await this.setState({ title: val });
+    this.update();
+  };
   update = debounce(() => {
     this.props.noteUpdate(this.state.id, {
       title: this.state.title,
@@ -42,14 +46,24 @@ class Editor extends React.Component {
       });
     }
   };
+
   render() {
     const { classes } = this.props;
     return (
       <div>
+        <BorderColorIcon className={classes.editIcon}></BorderColorIcon>
+        <input
+          className={classes.titleInput}
+          placeholder="Note title...."
+          value={this.state.title}
+          onChange={(e) => this.updateTitle(e.target.value)}
+        />
+
         <ReactQuill
           value={this.state.text}
           className={classes.editorContainer}
           onChange={this.updateBody}
+          style={{ overflow: "hidden" }}
         ></ReactQuill>
       </div>
     );

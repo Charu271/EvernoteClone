@@ -27,7 +27,8 @@ const styles = (theme) => ({
     height: "10",
   },
   editorContainer: {
-    height: "100%",
+    height: "90vh",
+    overflowY: "scroll",
     boxSizing: "border-box",
   },
 });
